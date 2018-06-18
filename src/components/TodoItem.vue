@@ -1,8 +1,10 @@
 <template>
   <li>
-    <input type="checkbox" v-model="todo.completed">
-    <span v-bind:class="{through: todo.completed}">{{ todo.content }}</span>
-    <button v-on:click="removeTodo(key)">x</button>
+    <input v-model="todo.completed" type="checkbox" class="uk-checkbox">
+    <span v-bind:class="{through: todo.completed}" class="uk-margin-left">
+      {{ todo.content }}
+    </span>
+    <a v-on:click="removeTodo(key)" class="uk-align-right" uk-icon="icon: close"></a>
   </li>
 </template>
 

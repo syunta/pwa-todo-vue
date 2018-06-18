@@ -1,14 +1,12 @@
 <template>
   <div class="uk-container uk-width-medium">
-    <h1 class="uk-heading-primary uk-text-center">TO;DO</h1>
-    <div class="uk-inline">
-      <input v-model="newTodo" class="uk-input" type="text">
-      <a v-on:click="addTodo" class="uk-form-icon uk-form-icon-flip" uk-icon="icon: plus"></a>
-    </div>
+    <h1 class="uk-h1 uk-text-center">TO;DO</h1>
+    <todo-form v-bind:todos="todos"></todo-form>
     <ul class="uk-list uk-list-striped">
       <todo-item v-for="(todo, index) in todos"
-                 v-bind:todo="todo"
                  v-bind:key="index"
+                 v-bind:index="index"
+                 v-bind:todo="todo"
                  v-bind:todos="todos">
       </todo-item>
     </ul>
@@ -19,33 +17,27 @@
 </template>
 
 <script>
+  import TodoForm from "./TodoForm.vue";
   import TodoItem from "./TodoItem.vue";
-
   export default {
     name: 'app',
     data(){
       return {
-        newTodo: "",
         todos: [],
       }
     },
     methods: {
-      addTodo: function () {
-        this.todos.push({
-          content: this.newTodo,
-          completed: false,
-        });
-      },
       removeCompleted: function () {
         this.todos = this.todos.filter(todo => !todo.completed)
       },
     },
     components: {
+      TodoForm,
       TodoItem,
     },
   };
 </script>
 
-<style>
+<style scoped>
   @import "../../node_modules/uikit/dist/css/uikit.min.css";
 </style>

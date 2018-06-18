@@ -1,0 +1,27 @@
+{
+  "lang": "ja",
+  "version": "1.0.0",
+  "name": "TO;DO",
+  "short_name": "TO;DO",
+  "theme_color": "#fb8c00",
+  "background_color": "#fff",
+  "start_url": "./",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon/144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

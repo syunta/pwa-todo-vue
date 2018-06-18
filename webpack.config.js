@@ -2,6 +2,8 @@
 
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: `./src/index.js`,
@@ -12,7 +14,8 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: 'dist',
-    open: true
+    port: 8080,
+    open: true,
   },
   module: {
     rules: [
@@ -39,6 +42,23 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html',
       inject: true
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: `${__dirname}/src/static`,
+        to: `${__dirname}/dist`,
+      },
+    ]),
+    new WorkboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+      runtimeCaching: [
+        {
+          urlPattern: '/',
+          handler: 'cacheFirst',
+        },
+      ],
     }),
   ]
 };

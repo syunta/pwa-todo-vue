@@ -3,6 +3,7 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: 'dist',
+    compress: true,
     port: 8080,
     open: true,
   },
@@ -49,6 +51,9 @@ module.exports = {
         to: `${__dirname}/dist`,
       },
     ]),
+    new CompressionPlugin({
+      test: /(\.js$|\.png$)/,
+    }),
     new WorkboxPlugin.GenerateSW({
       swDest: 'sw.js',
       clientsClaim: true,

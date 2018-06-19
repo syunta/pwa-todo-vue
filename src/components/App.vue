@@ -39,5 +39,4 @@
 </script>
 
 <style scoped>
-  @import "../../node_modules/uikit/dist/css/uikit.min.css";
 </style>

@@ -10,7 +10,7 @@
                  v-bind:todos="todos">
       </todo-item>
     </ul>
-    <button v-on:click="removeCompleted" class="uk-button uk-button-default">
+    <button v-on:click="removeCompleted" class="uk-button uk-button-default uk-align-center">
       clear completed
     </button>
   </div>

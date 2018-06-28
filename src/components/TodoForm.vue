@@ -15,7 +15,6 @@
 <script>
   export default {
     name: 'todo-form',
-    props: ['todos'],
     data(){
       return {
         newTodo: "",
@@ -24,10 +23,7 @@
     methods: {
       addTodo: function () {
         if (this.isEmptyForm) return;
-        this.todos.push({
-          content: this.newTodo,
-          completed: false,
-        });
+        this.$store.commit('addTodo', this.newTodo);
         this.newTodo = "";
       },
     },

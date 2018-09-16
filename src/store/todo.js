@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import db from '../db'
 
 Vue.use(Vuex);
 
@@ -9,17 +10,42 @@ export default new Vuex.Store({
     todos: []
   },
   mutations: {
-    addTodo (state, content) {
-      state.todos.push({
-        content: content,
-        completed: false,
+    loadAll (state, result) {
+      state.todos = result;
+    }
+  },
+  actions: {
+    loadAllAsync ({ commit }) {
+      db.getAll(function (result) {
+        commit('loadAll', result);
       });
     },
-    removeTodo (state, index) {
-      state.todos.splice(index, 1);
+    addTodoAsync ({ commit }, content) {
+      db.put({
+        content: content,
+        completed: false,
+      }, function () {
+        db.getAll(function (result) {
+          commit('loadAll', result);
+        });
+      });
     },
-    removeCompleted (state) {
-      state.todos = state.todos.filter(todo => !todo.completed)
+    removeTodoAsync ({ commit }, content) {
+      db.delete(content, function () {
+        db.getAll(function (result) {
+          commit('loadAll', result);
+        });
+      });
+    },
+    removeCompletedAsync ({ commit }, todos) {
+      let completed = todos.filter(todo => todo.completed);
+      completed.forEach(function (todo) {
+        db.delete(todo.content, function () {
+          db.getAll(function (result) {
+            commit('loadAll', result);
+          });
+        });
+      });
     },
   }
 });

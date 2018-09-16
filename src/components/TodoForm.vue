@@ -23,7 +23,7 @@
     methods: {
       addTodo: function () {
         if (this.isEmptyForm) return;
-        this.$store.commit('addTodo', this.newTodo);
+        this.$store.dispatch('addTodoAsync', this.newTodo);
         this.newTodo = "";
       },
     },

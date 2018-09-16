@@ -5,10 +5,13 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
   export default {
     name: 'todo-button',
-    methods: mapMutations(['removeCompleted']),
+    methods: {
+      removeCompleted() {
+        this.$store.dispatch('removeCompletedAsync', this.$store.state.todos)
+      }
+    }
   };
 </script>
 
